@@ -1,54 +1,57 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>Sharable URLs</title>
-		<style>
-			body {
-				font-family : Arial, sans-serif;
-				padding : 20px;
-			}
-
-			.form-container {
-				margin-bottom : 20px;
-			}
-		</style>
-	</head>
-  <body>
-
-	  <div class="form-container">
-		  <!-- Form for user input -->
-		  <form id="url-form">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update URL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .form-container {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <!-- Form for user input -->
+        <form id="url-form">
             <!-- Text input for name -->
-			  <label for= "name">Name:</label>
-			  <input type="text" id="name" name="name"><br><br>
-			  
-			  <!-- Number input for year -->
-			  <label for="year">Year:</label>
-			  <input type="number" id="year" name="year"><br><br>
-			  
-			  <!-- Submit Button -->
-			  <button type="button" id="button">Submit</button>
-		  </form>
-	  </div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name"><br><br>
 
-	  <!-- Element to display the updated URL -->
-	  <h3 id="url">https://localhost:8080</h3>
-        <script>
+            <!-- Number input for year -->
+            <label for="year">Year:</label>
+            <input type="number" id="year" name="year"><br><br>
+
+            <!-- Submit button -->
+            <button type="button" id="button">Submit</button>
+        </form>
+    </div>
+
+    <!-- Element to display the updated URL -->
+    <h3 id="url">https://localhost:8080/</h3>
+
+    <script>
         // Function to update the URL based on form input
         function updateUrl() {
             // Get the input values
             const name = document.getElementById('name').value;
             const year = document.getElementById('year').value;
 
-            // Construct the new URL with query parameters
+            // Base URL
             let newUrl = 'https://localhost:8080/';
-            if (name || year) {
-                newUrl += '?';
-                if (name) newUrl += `name=${encodeURIComponent(name)}`;
-                if (year) {
-                    if (name) newUrl += '&';
-                    newUrl += `year=${encodeURIComponent(year)}`;
-                }
+
+            // Add query parameters if any
+            const queryParams = [];
+            if (name) queryParams.push(`name=${encodeURIComponent(name)}`);
+            if (year) queryParams.push(`year=${encodeURIComponent(year)}`);
+
+            // Append query parameters to the base URL
+            if (queryParams.length > 0) {
+                newUrl += '?' + queryParams.join('&');
             }
 
             // Update the h3 element with the new URL
@@ -58,6 +61,5 @@
         // Attach event listener to the submit button
         document.getElementById('button').addEventListener('click', updateUrl);
     </script>
-  </body>
-
+</body>
 </html>
